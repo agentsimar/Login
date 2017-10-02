@@ -1,5 +1,6 @@
 package com.example.akal.sampleproject.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
     StringRequest stringRequest;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         user = new User();
+
+        preferences = getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
+        editor = preferences.edit();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +83,15 @@ public class RegisterActivity extends AppCompatActivity {
                     String message = jsonObject.getString("message");
 
                     Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
+
+                    if(success == 1){
+                        editor.putBoolean(Util.KEY_LOGREG,true);
+                        editor.commit();
+                        Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 } catch (Exception e) {
                     Toast.makeText(RegisterActivity.this, "Exception:" + e, Toast.LENGTH_LONG).show();
                 }
