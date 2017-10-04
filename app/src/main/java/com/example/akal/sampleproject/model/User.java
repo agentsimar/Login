@@ -1,10 +1,12 @@
 package com.example.akal.sampleproject.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Akal on 22-09-2017.
  */
 
-public class User {
+public class User implements Serializable {
     int uid;
     String name;
     String email;

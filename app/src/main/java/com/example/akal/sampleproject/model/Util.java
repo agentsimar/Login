@@ -13,4 +13,5 @@ public class Util {
 
     public static final String PREFS_NAME = "sampleproject";
     public static final String KEY_LOGREG = "keyLoginRegister";
+    public static final String KEY_USER = "keyUser";
 }

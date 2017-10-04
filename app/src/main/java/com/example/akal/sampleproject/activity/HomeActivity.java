@@ -1,6 +1,7 @@
 package com.example.akal.sampleproject.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -150,12 +151,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("id",String.valueOf(user.getUid()));
+                map.put("uid",String.valueOf(user.getUid()));
                 return map;
             }
         };
         requestQueue.add(stringRequest);
-
+        Toast.makeText(this,"UID is: "+user.getUid(),Toast.LENGTH_LONG).show();
     }
 
     void askForDeletion(){
@@ -187,6 +188,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         askForDeletion();
                         break;
                     case 2:
+                        Intent intent = new Intent(HomeActivity.this,RegisterActivity.class);
+                        intent.putExtra(Util.KEY_USER,user);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
